@@ -23,4 +23,4 @@
    npm start
    ```
 
-Abra `http://localhost:3000` no navegador.
+Abra `http://localhost:8080` no navegador.
