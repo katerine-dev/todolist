@@ -1,15 +1,19 @@
 import React from 'react';
-import { useTodoContext } from '../context/TodoContext';
 
-function TodoItem({ todo }) {
-  const { toggleTodo, removeTodo } = useTodoContext();
-
+export default React.memo(function TodoItem({ todo, onToggle, onRemove }) {
   return (
-    <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-      <span onClick={() => toggleTodo(todo.id)}>{todo.text}</span>
-      <button onClick={() => removeTodo(todo.id)}>✕</button>
+    <li className="todo-item">
+      <label>
+        <input
+          type="checkbox"
+          checked={todo.done}
+          onChange={() => onToggle(todo.id)}
+        />
+        <span className={todo.done ? 'done' : ''}>{todo.text}</span>
+      </label>
+      <button onClick={() => onRemove(todo.id)} className="btn-remove">
+        ×
+      </button>
     </li>
   );
-}
-
-export default React.memo(TodoItem);
+});

@@ -1,27 +1,19 @@
 import React from 'react';
-import { useTodoContext } from '../context/TodoContext';
 
-function TodoFilters() {
-  const { filter, setFilter } = useTodoContext();
-  const buttons = [
-    { key: 'all', label: 'Todas' },
-    { key: 'completed', label: 'Concluídas' },
-    { key: 'pending', label: 'Pendentes' }
-  ];
+export default React.memo(function TodoFilters({ filter, setFilter }) {
+  const options = ['all', 'active', 'completed'];
 
   return (
     <div className="todo-filters">
-      {buttons.map(b => (
+      {options.map(opt => (
         <button
-          key={b.key}
-          onClick={() => setFilter(b.key)}
-          disabled={filter === b.key}
+          key={opt}
+          onClick={() => setFilter(opt)}
+          className={filter === opt ? 'btn-filter active' : 'btn-filter'}
         >
-          {b.label}
+          {opt === 'all' ? 'Todas' : opt === 'active' ? 'Pendentes' : 'Concluídas'}
         </button>
       ))}
     </div>
   );
-}
-
-export default React.memo(TodoFilters);
+});

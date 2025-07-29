@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useTodoContext } from '../context/TodoContext';
+import { useTodos } from '../context/TodoContext';
 
-function TodoForm() {
+export default function TodoForm() {
   const [text, setText] = useState('');
-  const { addTodo } = useTodoContext();
+  const { addTodo } = useTodos();
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!text.trim()) return;
     addTodo(text);
     setText('');
   };
@@ -15,14 +14,15 @@ function TodoForm() {
   return (
     <form onSubmit={handleSubmit} className="todo-form">
       <input
-        type="text"
+        id="new-todo"
+        className="todo-input"
+        placeholder="Digite sua nova tarefa..."
         value={text}
         onChange={e => setText(e.target.value)}
-        placeholder="Nova tarefa..."
       />
-      <button type="submit">Adicionar</button>
+      <button type="submit" className="btn-add" disabled={!text.trim()}>
+        Adicionar
+      </button>
     </form>
   );
 }
-
-export default React.memo(TodoForm);
